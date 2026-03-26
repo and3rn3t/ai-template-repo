@@ -49,6 +49,19 @@ A comprehensive template repository pre-configured with AI coding assistant file
 | `.github/workflows/ci.yml` | CI workflow with placeholder lint, test, and build jobs |
 | `.github/dependabot.yml` | Automated dependency updates for Actions and npm |
 | `.github/CODEOWNERS` | Code ownership patterns for automated review routing |
+| `.github/workflows/release.yml` | Automated GitHub Releases on version tags |
+| `.github/labels.yml` | Version-controlled issue/PR label definitions |
+| `.github/workflows/label-sync.yml` | Syncs labels from `labels.yml` to your repo |
+
+### Developer Experience
+
+| File | Purpose |
+|------|---------||
+| `.devcontainer/devcontainer.json` | One-click dev environment for Codespaces and VS Code |
+| `.vscode/extensions.json` | Recommended VS Code extensions for the project |
+| `.vscode/settings.json` | Workspace editor settings (format-on-save, rulers, etc.) |
+| `Makefile` | Self-documenting, language-agnostic task runner |
+| `.env.example` | Documents required environment variables |
 
 ## Quick Start
 
@@ -77,7 +90,13 @@ A comprehensive template repository pre-configured with AI coding assistant file
    - Edit `.github/dependabot.yml` for your package ecosystem
    - Configure `.github/CODEOWNERS` with your team's ownership patterns
 
-5. **Remove cross-tool files you don't use**:
+5. **Set up your dev environment**:
+   - Copy `.env.example` to `.env` and fill in your values
+   - Update `Makefile` targets with your actual commands
+   - Review `.vscode/settings.json` and `.vscode/extensions.json`
+   - Try `make help` to see available task runner commands
+
+6. **Remove cross-tool files you don't use**:
    - Only using Copilot? Remove `.cursorrules`, `.clinerules`, `.windsurfrules`, `CLAUDE.md`
    - Only using Cursor? Keep `.cursorrules`, remove others
 
