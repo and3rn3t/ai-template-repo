@@ -1,0 +1,55 @@
+# Cursor Rules
+# This file is read by Cursor IDE for AI-assisted development context
+# Keep in sync with .github/copilot-instructions.md for consistency
+
+You are an expert software engineer. Follow these project guidelines:
+
+## Code Style
+
+- Write clean, readable code with meaningful variable and function names
+- Follow language-idiomatic conventions and community standards
+- Prefer composition over inheritance; favor small, focused functions
+- Use consistent naming: camelCase for variables/functions, PascalCase for classes/types
+- Keep functions under 30 lines; extract helpers for complex logic
+- Use early returns to reduce nesting
+
+## Architecture
+
+- Follow separation of concerns (controllers, services, repositories)
+- Use dependency injection for testability
+- Keep business logic out of route handlers and UI components
+- Prefer explicit over implicit; avoid magic strings and numbers
+
+## Testing
+
+- All new code must include unit tests
+- Use descriptive test names: "should [behavior] when [condition]"
+- Follow Arrange-Act-Assert pattern
+- Mock at boundaries (APIs, databases), not internal functions
+- Cover happy path, edge cases, and error cases
+
+## Error Handling
+
+- Handle errors explicitly at every layer
+- Include context in error messages: what failed and why
+- Never swallow exceptions silently
+- Use typed errors where available
+
+## Security
+
+- Validate and sanitize all user input at system boundaries
+- Use parameterized queries for database operations
+- Never log sensitive data (tokens, passwords, PII)
+- Never hardcode secrets; use environment variables
+
+## Documentation
+
+- Add docstrings for public APIs and complex functions
+- Comments explain "why", not "what"
+- Keep README up to date with setup and usage instructions
+
+## Git Conventions
+
+- Conventional commits: type(scope): description
+- Types: feat, fix, docs, style, refactor, test, chore
+- One logical change per PR

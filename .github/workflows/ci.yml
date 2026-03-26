@@ -1,0 +1,83 @@
+# TODO: Customize this CI workflow for your project.
+# This template assumes Node.js — see comments for adapting to other languages.
+
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+# Cancel in-progress runs for the same branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Node.js setup ---
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # cache: npm  # TODO: Uncomment to enable dependency caching
+
+      # --- Python alternative (uncomment and remove Node.js steps) ---
+      # - uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "3.12"
+      #     # cache: pip
+
+      # --- Go alternative ---
+      # - uses: actions/setup-go@v5
+      #   with:
+      #     go-version: "1.22"
+
+      - run: echo "TODO: Add your lint command (e.g., npm run lint, ruff check ., golangci-lint run)"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    # needs: lint  # TODO: Uncomment to run tests only after lint passes
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # cache: npm
+
+      - run: echo "TODO: Install dependencies (e.g., npm ci, pip install -r requirements.txt)"
+      - run: echo "TODO: Add your test command (e.g., npm test, pytest, go test ./...)"
+
+      # --- Matrix builds (test across multiple versions) ---
+      # strategy:
+      #   matrix:
+      #     node-version: [18, 20, 22]
+      # Then use: node-version: ${{ matrix.node-version }}
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # cache: npm
+
+      - run: echo "TODO: Install dependencies"
+      - run: echo "TODO: Add your build command (e.g., npm run build, python -m build, go build ./...)"
+
+      # --- Upload build artifacts ---
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: build-output
+      #     path: dist/  # TODO: Set to your build output directory
