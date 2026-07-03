@@ -1,17 +1,56 @@
 # Project Guidelines (AGENTS.md)
 
 <!--
-  AGENTS.md is an open standard alternative to .github/copilot-instructions.md.
-  Use ONE or the OTHER — not both. This file is provided as a reference.
-  
-  If you prefer this format, delete .github/copilot-instructions.md and 
-  move this file to the project root.
-  
+  SINGLE SOURCE OF TRUTH for AI assistant instructions.
+  CLAUDE.md and .github/copilot-instructions.md are thin pointers to this file —
+  edit HERE, not there. (Claude Code, Copilot, Cursor, and most agents all read
+  AGENTS.md natively or via the pointer files.)
+
   AGENTS.md supports hierarchy in monorepos:
     /AGENTS.md              - Root defaults
-    /frontend/AGENTS.md     - Frontend-specific (overrides root for frontend/)
-    /backend/AGENTS.md      - Backend-specific (overrides root for backend/)
+    /apps/web/AGENTS.md     - App-specific (overrides root for that subtree)
 -->
+
+## Project Overview
+
+<!-- Describe your project here: what it does, who it's for. -->
+
+## Stack Defaults (and3rn3t projects)
+
+Pick the profile that applies and delete the other.
+
+### Web app (default)
+
+- React + TypeScript + Vite; deployed to Cloudflare Workers via wrangler
+- Package manager: **pnpm** (declare `packageManager` in package.json; do not mix with npm)
+- Node: `>=24` (pinned in `.nvmrc`)
+- Tests: **Vitest** (+ Testing Library for components); coverage via `vitest run --coverage`
+- Lint/format: ESLint + Prettier
+
+### Python CLI / skill
+
+- pyproject.toml-based; stdlib-first, minimal dependencies
+- If it doubles as a Claude/OpenClaw skill, keep `SKILL.md` frontmatter accurate (name, description, triggers, version)
+- Tests: pytest in `tests/`
+
+## Build Commands (web profile)
+
+```bash
+pnpm install
+pnpm dev          # local dev server
+pnpm cf:dev       # wrangler dev (Workers runtime)
+pnpm test         # vitest
+pnpm lint         # eslint
+pnpm type-check   # tsc --noEmit
+pnpm format       # prettier
+pnpm build        # production build
+```
+
+## Deployment
+
+- Cloudflare Workers via `wrangler deploy`; config lives in `wrangler.toml`/`wrangler.jsonc`
+- Never deploy or commit unless explicitly asked
+- Secrets via `wrangler secret` / environment variables — never hardcoded, never logged
 
 ## Code Style
 
@@ -20,12 +59,13 @@
 - Prefer composition over inheritance
 - Keep functions focused and under 30 lines
 - Use early returns to reduce nesting
+- Handle errors explicitly — no silent catches
 
 ## Architecture
 
-- Clear separation of concerns (controllers, services, repositories)
+- Clear separation of concerns; business logic out of route handlers and UI components
 - Dependency injection for testability
-- Business logic separate from I/O and framework code
+- Prefer explicit over implicit; no magic strings/numbers
 
 ## Testing
 
@@ -43,6 +83,7 @@
 
 ## Conventions
 
-- Conventional commits: `type(scope): description`
+- Conventional commits: `type(scope): description` (enforced with commitlint where configured)
+- Branch naming: `type/short-description`
 - One logical change per pull request
 - Update documentation when changing public APIs

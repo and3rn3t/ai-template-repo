@@ -16,7 +16,7 @@
   // -------------------------------------------------------------------
   // "features": {
   //   // TODO: Uncomment and pin versions for the runtimes you need
-  //   "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+  //   "ghcr.io/devcontainers/features/node:1": { "version": "24" },
   //   "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
   //   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   // },

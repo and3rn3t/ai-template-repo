@@ -9,7 +9,7 @@
 #   pattern    @owner1 @owner2
 
 # --- Default owner for everything ---
-# *                        @your-org/maintainers
+*                        @and3rn3t
 
 # --- Documentation ---
 # *.md                     @your-org/docs-team

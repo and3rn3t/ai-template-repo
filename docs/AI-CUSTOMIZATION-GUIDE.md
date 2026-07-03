@@ -306,7 +306,7 @@ Keep AI context consistent across different tools by maintaining parallel files:
 | `.clinerules` | Cline extension | Plain text / Markdown |
 | `.windsurfrules` | Windsurf IDE | Plain text / Markdown |
 
-**Tip**: Keep all cross-tool files in sync. When you update one, update the others. The content should be equivalent — only the filename differs.
+**Pattern**: `AGENTS.md` is the **single source of truth**. All other cross-tool files (`CLAUDE.md`, `.github/copilot-instructions.md`, `.cursorrules`, `.clinerules`, `.windsurfrules`, `.cursor/rules/project.mdc`) are thin pointers to it. Edit AGENTS.md; never duplicate content into the pointer files — duplication is how drift happens. Tool-specific additions (e.g. Claude-only notes) go in that tool's pointer file below the pointer.
 
 ---
 
@@ -335,7 +335,7 @@ Keep AI context consistent across different tools by maintaining parallel files:
 5. **Version control everything**
    - Commit all `.github/` customizations to share with the team
    - Review changes to AI files like any other code change
-   - Keep cross-tool files in sync
+   - AGENTS.md is the single source of truth; pointer files never carry duplicated content
 
 ---
 

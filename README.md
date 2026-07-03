@@ -19,11 +19,14 @@ A comprehensive template repository pre-configured with AI coding assistant file
 
 | File | Tool | Purpose |
 |------|------|---------|
-| `AGENTS.md` | Open standard | Alternative to `copilot-instructions.md` with monorepo hierarchy support |
-| `CLAUDE.md` | Claude Code | Project instructions for Anthropic's CLI agent |
-| `.cursorrules` | Cursor IDE | AI context rules for Cursor |
-| `.clinerules` | Cline extension | AI context rules for Cline |
-| `.windsurfrules` | Windsurf IDE | AI context rules for Windsurf |
+| `AGENTS.md` | Open standard | **Single source of truth** for all AI assistant instructions |
+| `CLAUDE.md` | Claude Code | Pointer to AGENTS.md + Claude-specific notes |
+| `.cursor/rules/project.mdc` | Cursor IDE | Pointer to AGENTS.md (modern format) |
+| `.cursorrules` | Cursor IDE (legacy) | Pointer to AGENTS.md |
+| `.clinerules` | Cline extension | Pointer to AGENTS.md |
+| `.windsurfrules` | Windsurf IDE | Pointer to AGENTS.md |
+
+> **Single-source pattern**: edit `AGENTS.md` only. The pointer files exist so every tool finds the instructions; they never carry their own copies of the content.
 
 ### Supporting Files
 
@@ -32,6 +35,10 @@ A comprehensive template repository pre-configured with AI coding assistant file
 | `.editorconfig` | Cross-editor formatting consistency |
 | `.gitignore` | Standard ignore patterns |
 | `docs/AI-CUSTOMIZATION-GUIDE.md` | Comprehensive guide to all AI file types |
+| `docs/README-template.md` | Standard README structure for new projects (copy into README.md) |
+| `docs/ARCHITECTURE-template.md`, `docs/PRD-template.md`, `docs/ROADMAP-template.md` | Doc scaffolds (roadmap includes the AI pull-loop convention) |
+| `docs/adr/0000-template.md` | Architecture Decision Record template |
+| `profiles/web/` | Canonical eslint/prettier/tsconfig/wrangler configs for web repos |
 
 ### GitHub Platform & Community Files
 
