@@ -1,6 +1,16 @@
 # Lighthouse performance baseline — DISABLED by default.
-# Enable by uncommenting the jobs and adapting the URL/build steps
-# (see and3rn3t/homehub and and3rn3t/health for working examples).
+#
+# For the simple "audit an already-deployed URL" case, call the shared
+# reusable-lighthouse.yml (see and3rn3t for a working example):
+#
+#   jobs:
+#     lighthouse:
+#       uses: and3rn3t/.github/.github/workflows/reusable-lighthouse.yml@main
+#       with:
+#         url: https://your-deployed-url.example
+#
+# If you need a build step first or custom PR-comment formatting, write your
+# own job instead — see health or homehub for that pattern.
 
 name: Lighthouse
 
@@ -11,16 +21,4 @@ jobs:
   noop:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Enable Lighthouse by adapting this workflow — see homehub/health repos."
-# jobs:
-#   lighthouse:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v6
-#       - uses: actions/setup-node@v6
-#         with: { node-version-file: .nvmrc, cache: npm }
-#       - run: npm ci && npm run build
-#       - uses: treosh/lighthouse-ci-action@v12
-#         with:
-#           uploadArtifacts: true
-#           temporaryPublicStorage: true
+      - run: echo "Enable Lighthouse by calling reusable-lighthouse.yml — see and3rn3t for a working example."
