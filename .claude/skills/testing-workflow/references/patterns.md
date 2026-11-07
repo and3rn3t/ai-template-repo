@@ -44,16 +44,18 @@ class UserService {
 }
 
 // Test
-const mockRepo = { findById: jest.fn().mockResolvedValue({ id: '1', name: 'Test' }) };
+const mockRepo = { findById: vi.fn().mockResolvedValue({ id: '1', name: 'Test' }) };
 const service = new UserService(mockRepo);
 ```
 
 ### Module Mocking (When DI isn't available)
 
 ```typescript
-jest.mock('../services/emailService');
-const mockSend = emailService.send as jest.MockedFunction<typeof emailService.send>;
-mockSend.mockResolvedValue({ success: true });
+import { vi } from 'vitest';
+import * as emailService from '../services/emailService';
+
+vi.mock('../services/emailService');
+vi.mocked(emailService.send).mockResolvedValue({ success: true });
 ```
 
 ## API/Integration Test Pattern

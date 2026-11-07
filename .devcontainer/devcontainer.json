@@ -1,52 +1,29 @@
-// Dev Container configuration
+// Dev Container for the web profile (Node 24 + pnpm + wrangler).
 // Docs: https://containers.dev/implementors/json_reference/
-//
-// TODO: Customize this for your project's language, runtime, and tooling needs.
-// This template uses the universal image which includes Node.js, Python, Java,
-// .NET, PHP, Go, Ruby, and common CLI tools out of the box.
 {
-  // TODO: Replace with your project name
-  "name": "My Project Dev Container",
-
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
-
-  // -------------------------------------------------------------------
-  // Features — add language runtimes, tools, or CLIs
-  // Docs: https://containers.dev/features
-  // -------------------------------------------------------------------
-  // "features": {
-  //   // TODO: Uncomment and pin versions for the runtimes you need
-  //   "ghcr.io/devcontainers/features/node:1": { "version": "24" },
-  //   "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
-  //   "ghcr.io/devcontainers/features/docker-in-docker:2": {}
-  // },
-
+  "name": "and3rn3t web",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:24",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  // corepack provisions the pnpm version pinned in package.json "packageManager".
+  "postCreateCommand": "sudo corepack enable && COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install",
+  "forwardPorts": [5173, 8787],
+  "portsAttributes": {
+    "5173": { "label": "Vite" },
+    "8787": { "label": "wrangler dev" }
+  },
   "customizations": {
     "vscode": {
       "extensions": [
-        "github.copilot",
+        "anthropic.claude-code",
         "github.copilot-chat",
-        "editorconfig.editorconfig",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "eamodio.gitlens"
-        // TODO: Add extensions for your stack (e.g., ms-python.python, golang.go)
+        "vitest.explorer",
+        "editorconfig.editorconfig"
       ]
     }
-  }
-
-  // -------------------------------------------------------------------
-  // Port forwarding — expose application or database ports
-  // -------------------------------------------------------------------
-  // "forwardPorts": [3000, 5432],
-
-  // -------------------------------------------------------------------
-  // Lifecycle commands — run after the container is created
-  // -------------------------------------------------------------------
-  // "postCreateCommand": "npm install",
-
-  // -------------------------------------------------------------------
-  // Remote user — override the default user inside the container
-  // -------------------------------------------------------------------
-  // "remoteUser": "vscode"
+  },
+  "remoteUser": "node"
 }

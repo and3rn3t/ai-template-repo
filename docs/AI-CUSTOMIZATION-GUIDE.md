@@ -46,7 +46,7 @@ Does it apply when working on specific FILE TYPES?
 
 Is it a specific TASK that's triggered manually?
   Single step → Prompt (.github/prompts/)
-  Multi-step with bundled resources → Skill (.github/skills/)
+  Multi-step with bundled resources → Skill (.claude/skills/)
 
 Does it need a specialized PERSONA with restricted tools?
   YES → Custom Agent (.github/agents/)
@@ -245,14 +245,14 @@ You are a [role]. Your job is to [purpose].
 
 ## Skills
 
-**Location**: `.github/skills/<skill-name>/SKILL.md`
+**Location**: `.claude/skills/<skill-name>/SKILL.md`
 
-Multi-step workflows with bundled reference documents, scripts, and templates.
+Multi-step workflows with bundled reference documents, scripts, and templates. This template keeps skills in `.claude/skills/` because both Claude Code and VS Code Copilot load project skills from there (VS Code also reads `.github/skills/` and `.agents/skills/`), so one copy serves both tools.
 
 ### Structure
 
 ```
-.github/skills/<skill-name>/
+.claude/skills/<skill-name>/
 ├── SKILL.md           # Required entry point (name must match folder)
 ├── references/        # Supporting documentation
 ├── scripts/           # Executable scripts
@@ -326,16 +326,14 @@ Deterministic automation at agent lifecycle events. Unlike instructions (which g
 
 Keep AI context consistent across different tools by maintaining parallel files:
 
-| File                              | Tool            | Format                |
-| --------------------------------- | --------------- | --------------------- |
-| `.github/copilot-instructions.md` | VS Code Copilot | Markdown              |
-| `AGENTS.md`                       | Open standard   | Markdown              |
-| `CLAUDE.md`                       | Claude Code     | Markdown              |
-| `.cursorrules`                    | Cursor IDE      | Plain text / Markdown |
-| `.clinerules`                     | Cline extension | Plain text / Markdown |
-| `.windsurfrules`                  | Windsurf IDE    | Plain text / Markdown |
+| File                              | Tool            | Format            |
+| --------------------------------- | --------------- | ----------------- |
+| `.github/copilot-instructions.md` | VS Code Copilot | Markdown          |
+| `AGENTS.md`                       | Open standard   | Markdown          |
+| `CLAUDE.md`                       | Claude Code     | Markdown          |
+| `.cursor/rules/project.mdc`       | Cursor IDE      | MDC (frontmatter) |
 
-**Pattern**: `AGENTS.md` is the **single source of truth**. All other cross-tool files (`CLAUDE.md`, `.github/copilot-instructions.md`, `.cursorrules`, `.clinerules`, `.windsurfrules`, `.cursor/rules/project.mdc`) are thin pointers to it. Edit AGENTS.md; never duplicate content into the pointer files — duplication is how drift happens. Tool-specific additions (e.g. Claude-only notes) go in that tool's pointer file below the pointer.
+**Pattern**: `AGENTS.md` is the **single source of truth**. All other cross-tool files (`CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules/project.mdc`) are thin pointers to it. Edit AGENTS.md; never duplicate content into the pointer files — duplication is how drift happens. Tool-specific additions (e.g. Claude-only notes) go in that tool's pointer file below the pointer. Windsurf and Cline read `AGENTS.md` directly, so the legacy `.windsurfrules` / `.clinerules` / `.cursorrules` files were dropped.
 
 ---
 

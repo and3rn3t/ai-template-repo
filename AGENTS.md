@@ -15,42 +15,36 @@
 
 <!-- Describe your project here: what it does, who it's for. -->
 
-## Stack Defaults (and3rn3t projects)
+## Stack
 
-Pick the profile that applies and delete the other.
-
-### Web app (default)
-
-- React + TypeScript + Vite; deployed to Cloudflare Workers via wrangler
-- Package manager: **pnpm** (declare `packageManager` in package.json; do not mix with npm)
+- React + TypeScript + Vite; deployed to Cloudflare Workers (static assets) via wrangler
+- Package manager: **pnpm** (version pinned in `package.json` `packageManager`; never mix with npm)
 - Node: `>=24` (pinned in `.nvmrc`)
-- Tests: **Vitest** (+ Testing Library for components); coverage via `vitest run --coverage`
-- Lint/format: ESLint + Prettier
+- Lint/format: ESLint via `@and3rn3t/eslint-config`, Prettier (shared base)
+- Tests: **Vitest** + Testing Library; coverage via `pnpm test`
 
-### Python CLI / skill
+<!-- Python repo? Replace this section: pyproject.toml, stdlib-first, ruff, pytest in tests/.
+     If it doubles as a Claude skill, keep SKILL.md frontmatter accurate. -->
 
-- pyproject.toml-based; stdlib-first, minimal dependencies
-- If it doubles as a Claude/OpenClaw skill, keep `SKILL.md` frontmatter accurate (name, description, triggers, version)
-- Tests: pytest in `tests/`
-
-## Build Commands (web profile)
+## Commands
 
 ```bash
 pnpm install
-pnpm dev          # local dev server
-pnpm cf:dev       # wrangler dev (Workers runtime)
-pnpm test         # vitest
-pnpm lint         # eslint
-pnpm type-check   # tsc --noEmit
-pnpm format       # prettier
-pnpm build        # production build
+pnpm dev            # Vite dev server
+pnpm cf:dev         # build + wrangler dev (Workers runtime)
+pnpm lint           # eslint
+pnpm type-check     # tsc --noEmit
+pnpm test           # vitest run --coverage
+pnpm format         # prettier --write
+pnpm build          # type-check + production build
+pnpm validate       # lint + type-check + test — the gate (also runs on pre-push)
 ```
 
 ## Deployment
 
-- Cloudflare Workers via `wrangler deploy`; config lives in `wrangler.toml`/`wrangler.jsonc`
+- Cloudflare Workers via `pnpm cf:deploy` (build + `wrangler deploy`) — only when asked; config lives in `wrangler.jsonc`
 - Never deploy or commit unless explicitly asked
-- Secrets via `wrangler secret` / environment variables — never hardcoded, never logged
+- Secrets via `wrangler secret put` (local: `.dev.vars`) — never hardcoded, never logged, never read by AI tools
 
 ## Code Style
 
@@ -87,3 +81,10 @@ pnpm build        # production build
 - Branch naming: `type/short-description`
 - One logical change per pull request
 - Update documentation when changing public APIs
+
+## Definition of Done
+
+- `pnpm validate` passes and `pnpm build` succeeds
+- New behavior has tests; changed public APIs have updated docs
+- No new lint warnings, `any`, or disabled rules without a comment explaining why
+- `CHANGELOG.md` `[Unreleased]` updated for user-visible changes

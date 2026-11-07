@@ -9,7 +9,7 @@ and `wrangler deploy --dry-run` all pass on a fresh copy.
 
 | File                                  | Purpose                                                                                                                                             |
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `package.json`                        | pnpm 11, Node ≥24; scripts `dev`, `cf:dev`, `build`, `lint`, `type-check`, `format(:check)`, `test`, `validate`, `deploy`                           |
+| `package.json`                        | pnpm 11, Node ≥24; scripts `dev`, `cf:dev`, `build`, `lint`, `type-check`, `format(:check)`, `test`, `validate`, `cf:deploy`                        |
 | `pnpm-workspace.yaml`                 | `allowBuilds` (esbuild, workerd), `minimumReleaseAge`, home for `overrides`                                                                         |
 | `eslint.config.js`                    | extends [`@and3rn3t/eslint-config`](https://github.com/and3rn3t/eslint-config)                                                                      |
 | `prettier.config.js`, `tsconfig.json` | mirror the eslint-config package's prettier/tsconfig bases — switch to importing/extending them once `@and3rn3t/eslint-config@>=0.4.0` is published |
