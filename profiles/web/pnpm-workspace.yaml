@@ -1,0 +1,14 @@
+# pnpm v11+ settings live here (package.json "pnpm" fields are no longer read).
+
+# Dependencies allowed to run install scripts; anything unlisted fails install.
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+# pnpm defaults to a 24h minimumReleaseAge, which blocks same-day Renovate PRs.
+# 240 minutes still guards against hijacked releases. Value is in minutes.
+minimumReleaseAge: 240
+
+# Security version pins go here:
+# overrides:
+#   some-package: '>=1.2.3'

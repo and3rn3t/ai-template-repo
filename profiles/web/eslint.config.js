@@ -1,28 +1,5 @@
-// Canonical ESLint flat config for and3rn3t React+TS repos (from guess).
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import tseslint from 'typescript-eslint'
+// Shared and3rn3t rules (React hooks, react-refresh, typescript-eslint).
+// Add repo-specific rules after the spread.
+import and3rn3t from '@and3rn3t/eslint-config';
 
-export default tseslint.config(
-  { ignores: ['dist', 'coverage/'] },
-  {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      globals: globals.browser,
-    },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'jsx-a11y': jsxA11y,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    },
-  }
-)
+export default [...and3rn3t, { ignores: ['dist/', 'coverage/', '.wrangler/'] }];
