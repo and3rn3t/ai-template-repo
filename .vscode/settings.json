@@ -13,7 +13,7 @@
     "**/coverage": true,
     "**/.wrangler": true,
     "**/pnpm-lock.yaml": true
-  },
+  }
   // Python / Swift repos: swap the default formatter per language, e.g.
   // "[python]": { "editor.defaultFormatter": "charliermarsh.ruff" }
 }
