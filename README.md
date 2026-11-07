@@ -32,7 +32,25 @@ It copies every managed baseline file, the AI instruction files and the matching
 
 ### Or: GitHub "Use this template"
 
-You get every file, including both profiles. Copy `profiles/web/*` (or `profiles/python/*`) to the root, delete `profiles/`, replace `replace-project-name` (package.json, wrangler.jsonc, index.html, src/App.tsx), and fill in `AGENTS.md`.
+You get every file, including both profiles. `make new-repo` does the steps below for you, so prefer it when you can.
+
+**Web**: copy the profile, dotfiles included, to the root:
+
+```bash
+cp -R profiles/web/. . && rm profiles/web/README.md && rm -rf profiles
+```
+
+Then replace `replace-project-name` (`package.json`, `wrangler.jsonc`, `index.html`, `src/App.tsx`) and fill in `AGENTS.md`.
+
+**Python**: the profile files go to different places, and the Node-only files must be removed:
+
+```bash
+cp profiles/python/ci.yml profiles/python/codeql.yml .github/workflows/
+cp profiles/python/.pre-commit-config.yaml profiles/python/renovate.json .
+rm -rf profiles .husky .lintstagedrc.json commitlint.config.mjs .nvmrc .prettierignore Makefile .dev.vars.example .devcontainer
+```
+
+Then add a `pyproject.toml` and rewrite the Stack and Commands sections of `AGENTS.md`.
 
 ### Existing repo
 

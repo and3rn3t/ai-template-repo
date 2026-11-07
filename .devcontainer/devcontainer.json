@@ -7,7 +7,8 @@
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   // corepack provisions the pnpm version pinned in package.json "packageManager".
-  "postCreateCommand": "sudo corepack enable && COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install",
+  // Skips install where the root has no package.json (e.g. ai-template-repo itself).
+  "postCreateCommand": "sudo corepack enable && if [ -f package.json ]; then COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install; fi",
   "forwardPorts": [5173, 8787],
   "portsAttributes": {
     "5173": { "label": "Vite" },
