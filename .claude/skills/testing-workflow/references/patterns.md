@@ -38,20 +38,24 @@ describe('calculateTotal', () => {
 // Production
 class UserService {
   constructor(private repo: UserRepository) {}
-  async getUser(id: string) { return this.repo.findById(id); }
+  async getUser(id: string) {
+    return this.repo.findById(id);
+  }
 }
 
 // Test
-const mockRepo = { findById: jest.fn().mockResolvedValue({ id: '1', name: 'Test' }) };
+const mockRepo = { findById: vi.fn().mockResolvedValue({ id: '1', name: 'Test' }) };
 const service = new UserService(mockRepo);
 ```
 
 ### Module Mocking (When DI isn't available)
 
 ```typescript
-jest.mock('../services/emailService');
-const mockSend = emailService.send as jest.MockedFunction<typeof emailService.send>;
-mockSend.mockResolvedValue({ success: true });
+import { vi } from 'vitest';
+import * as emailService from '../services/emailService';
+
+vi.mock('../services/emailService');
+vi.mocked(emailService.send).mockResolvedValue({ success: true });
 ```
 
 ## API/Integration Test Pattern
@@ -76,9 +80,7 @@ describe('POST /api/users', () => {
       .send({ name: 'Test', email: 'not-an-email' })
       .expect(400);
 
-    expect(response.body.error.details).toContainEqual(
-      expect.objectContaining({ field: 'email' })
-    );
+    expect(response.body.error.details).toContainEqual(expect.objectContaining({ field: 'email' }));
   });
 });
 ```
@@ -108,9 +110,17 @@ const inactive = createUser({ active: false });
 ```typescript
 class UserBuilder {
   private user: Partial<User> = {};
-  withName(name: string) { this.user.name = name; return this; }
-  withRole(role: Role) { this.user.role = role; return this; }
-  build(): User { return createUser(this.user); }
+  withName(name: string) {
+    this.user.name = name;
+    return this;
+  }
+  withRole(role: Role) {
+    this.user.role = role;
+    return this;
+  }
+  build(): User {
+    return createUser(this.user);
+  }
 }
 
 const user = new UserBuilder().withName('Admin').withRole('admin').build();
@@ -118,10 +128,10 @@ const user = new UserBuilder().withName('Admin').withRole('admin').build();
 
 ## Coverage Guidelines
 
-| Category | Target | Priority |
-|----------|--------|----------|
-| Business logic | 90%+ | High |
-| API handlers | 80%+ | High |
-| Utilities | 90%+ | Medium |
-| UI components | 70%+ | Medium |
-| Configuration | 50%+ | Low |
+| Category       | Target | Priority |
+| -------------- | ------ | -------- |
+| Business logic | 90%+   | High     |
+| API handlers   | 80%+   | High     |
+| Utilities      | 90%+   | Medium   |
+| UI components  | 70%+   | Medium   |
+| Configuration  | 50%+   | Low      |

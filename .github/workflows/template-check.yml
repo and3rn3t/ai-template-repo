@@ -1,0 +1,99 @@
+# Self-check for ai-template-repo: keeps the baseline valid and the web starter
+# buildable. Only runs in this repo; repos created from the template skip it
+# (safe to delete there).
+name: Template check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  baseline:
+    name: Baseline files
+    if: github.repository == 'and3rn3t/ai-template-repo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+
+      # profiles/web/prettier.config.js imports the shared base from
+      # @and3rn3t/eslint-config, so install both (throwaway, not committed).
+      - name: Prettier (shared base)
+        run: |
+          npm install --prefix . --no-save --no-package-lock --silent prettier@3.9.10 @and3rn3t/eslint-config@0.4.0
+          npx prettier --config profiles/web/prettier.config.js --check "**/*.{md,yml,yaml,json}"
+
+      - name: JSON files parse
+        run: |
+          node - <<'EOF'
+          const { execSync } = require('node:child_process');
+          const { readFileSync } = require('node:fs');
+          const files = execSync('git ls-files "*.json"').toString().trim().split('\n');
+          // .vscode/ and .devcontainer/ are JSONC (comments allowed).
+          const strict = files.filter(f => !f.startsWith('.vscode/') && !f.startsWith('.devcontainer/'));
+          for (const f of strict) JSON.parse(readFileSync(f, 'utf8'));
+          console.log(`ok: ${strict.length} JSON files`);
+          EOF
+
+      - name: Pointer files reference AGENTS.md
+        run: |
+          for f in CLAUDE.md .github/copilot-instructions.md .cursor/rules/project.mdc; do
+            grep -q "AGENTS.md" "$f" || { echo "::error file=$f::does not point to AGENTS.md"; exit 1; }
+          done
+
+      - name: No TODO placeholders in baseline files
+        run: |
+          if git grep -n "TODO" -- . ':!docs/*-template.md' ':!docs/adr/*' ':!.github/instructions/documentation.instructions.md' ':!.github/workflows/template-check.yml' ':!CHANGELOG.md'; then
+            echo "::error::TODO placeholders found — baseline files must ship with real defaults"
+            exit 1
+          fi
+
+      - name: Hooks are executable
+        run: |
+          for f in .husky/* .claude/hooks/*.sh; do
+            [ -x "$f" ] || { echo "::error file=$f::not executable"; exit 1; }
+          done
+
+  web-starter:
+    name: Web profile builds
+    if: github.repository == 'and3rn3t/ai-template-repo'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Scaffold starter like new-repo does
+        run: |
+          mkdir "$RUNNER_TEMP/app"
+          cp -R profiles/web/. "$RUNNER_TEMP/app/"
+          cp .nvmrc .editorconfig commitlint.config.mjs .lintstagedrc.json "$RUNNER_TEMP/app/"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+      - name: Install
+        working-directory: ${{ runner.temp }}/app
+        # corepack provisions the pnpm version from the starter's "packageManager".
+        run: corepack enable && pnpm install
+        env:
+          HUSKY: 0
+          COREPACK_ENABLE_DOWNLOAD_PROMPT: 0
+      - name: Validate (lint, type-check, test)
+        working-directory: ${{ runner.temp }}/app
+        run: pnpm validate
+      - name: Format check
+        working-directory: ${{ runner.temp }}/app
+        run: pnpm format:check
+      - name: Build + wrangler dry-run
+        working-directory: ${{ runner.temp }}/app
+        run: pnpm build && pnpm exec wrangler deploy --dry-run

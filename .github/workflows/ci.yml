@@ -1,12 +1,15 @@
-# Default: Node.js quality pipeline (matches and3rn3t repo conventions).
-# Python variant at the bottom — swap the jobs if this is a Python project.
+# Default: Node.js quality pipeline on pnpm (and3rn3t standard).
+# pnpm version comes from the `packageManager` field in package.json.
+# npm repo? Drop the pnpm/action-setup step, set `cache: npm`, and use
+# `npm ci` / `npm run <script>` below.
+# Python repos: use profiles/python/ci.yml instead.
 #
 # Shorter alternative — call the shared reusable workflow instead:
 #   jobs:
 #     quality:
 #       uses: and3rn3t/.github/.github/workflows/reusable-node-verify.yml@v1
 #       with:
-#         command: npm run lint && npm run type-check && npm test && npm run build
+#         command: pnpm lint && pnpm type-check && pnpm test && pnpm build
 
 name: CI
 
@@ -34,38 +37,22 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version-file: .nvmrc
-          cache: npm # switch to pnpm for pnpm repos (also swap install below)
+          cache: pnpm
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         env:
           HUSKY: 0
       - name: Lint
-        run: npm run lint
+        run: pnpm lint
       - name: Type check
-        run: npm run type-check
+        run: pnpm type-check
       - name: Format check
-        run: npm run format:check
+        run: pnpm format:check
       - name: Tests with coverage
-        run: npm test
+        run: pnpm test
       - name: Build
-        run: npm run build
-
-  # --- Python variant (replace the quality job with this for Python projects) ---
-  # test:
-  #   name: pytest (Python ${{ matrix.python-version }})
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 15
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       python-version: ["3.10", "3.13"]
-  #   steps:
-  #     - uses: actions/checkout@v6
-  #     - uses: actions/setup-python@v6
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
-  #     - run: pip install -e ".[dev]"
-  #     - run: pytest
+        run: pnpm build

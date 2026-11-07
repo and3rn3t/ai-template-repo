@@ -1,26 +1,18 @@
 {
-  // Recommended extensions for this workspace.
-  // VS Code will prompt contributors to install these.
-  // Docs: https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
+  // Recommended extensions — VS Code prompts contributors to install these.
   "recommendations": [
-    // AI-assisted development
-    "github.copilot",
+    // AI assistants (both read AGENTS.md)
+    "anthropic.claude-code",
     "github.copilot-chat",
+
+    // Web profile tooling
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "vitest.explorer",
 
     // Editor essentials
     "editorconfig.editorconfig",
     "eamodio.gitlens",
-
-    // TODO: Swap these for your stack's linter/formatter extensions
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode"
+    "redhat.vscode-yaml"
   ]
-
-  // Uncomment alternatives that match your stack:
-  // "recommendations": [
-  //   "ms-python.python",           // Python
-  //   "golang.go",                  // Go
-  //   "rust-lang.rust-analyzer",    // Rust
-  //   "ms-azuretools.vscode-docker" // Docker
-  // ]
 }

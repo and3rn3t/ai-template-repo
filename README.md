@@ -1,183 +1,94 @@
-# AI-Assisted Development Template
+# ai-template-repo
 
-A comprehensive template repository pre-configured with AI coding assistant files for **VS Code Copilot**, **Cursor**, **Windsurf**, **Cline**, and **Claude Code**. Clone this repo to jumpstart any project with best-practice AI customizations.
+**The baseline every and3rn3t repo starts from and is measured against: AI-assistant instructions, CI, git hooks, community files and a working React + Vite + Cloudflare Workers starter.**
 
-## What's Included
+[![Template check](https://github.com/and3rn3t/ai-template-repo/actions/workflows/template-check.yml/badge.svg)](https://github.com/and3rn3t/ai-template-repo/actions/workflows/template-check.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-### VS Code Copilot (`.github/`)
+## Features
 
-| Type | Path | Count | Purpose |
-|------|------|-------|---------|
-| **Workspace Instructions** | `.github/copilot-instructions.md` | 1 | Global project standards applied to every interaction |
-| **File Instructions** | `.github/instructions/*.instructions.md` | 9 | Context-specific guidelines loaded on-demand or by file pattern |
-| **Prompts** | `.github/prompts/*.prompt.md` | 11 | Reusable task templates invoked via `/` in chat |
-| **Agents** | `.github/agents/*.agent.md` | 7 | Specialized AI personas with role-specific tools and constraints |
-| **Skills** | `.github/skills/*/SKILL.md` | 3 | Multi-step workflows with bundled reference docs |
-| **Hooks** | `.github/hooks/*.json` | 1 | Lifecycle automation for deterministic behavior enforcement |
+- **One instruction source**: `AGENTS.md` holds the rules. `CLAUDE.md`, Copilot and Cursor files only point to it.
+- **Claude Code ready**: shared permissions, a format-on-edit hook and project skills in `.claude/`
+- **Copilot extras**: file-scoped instructions, prompts and agents in `.github/`
+- **CI out of the box**: pnpm quality pipeline, CodeQL, dependency review, gitleaks, actionlint, consistency guard
+- **Git hygiene**: commitlint, lint-staged and a pre-push `pnpm validate` gate (husky)
+- **Release flow**: release-drafter with conventional-commit autolabels, Renovate via the shared preset
+- **Stack profiles**: `profiles/web` (tested starter) and `profiles/python`
+- **Self-checked**: `template-check.yml` lints the baseline and builds the web starter on every PR
 
-### Cross-Tool AI Files (Root)
+## Getting started
 
-| File | Tool | Purpose |
-|------|------|---------|
-| `AGENTS.md` | Open standard | **Single source of truth** for all AI assistant instructions |
-| `CLAUDE.md` | Claude Code | Pointer to AGENTS.md + Claude-specific notes |
-| `.cursor/rules/project.mdc` | Cursor IDE | Pointer to AGENTS.md (modern format) |
-| `.cursorrules` | Cursor IDE (legacy) | Pointer to AGENTS.md |
-| `.clinerules` | Cline extension | Pointer to AGENTS.md |
-| `.windsurfrules` | Windsurf IDE | Pointer to AGENTS.md |
+### New repo (preferred)
 
-> **Single-source pattern**: edit `AGENTS.md` only. The pointer files exist so every tool finds the instructions; they never carry their own copies of the content.
+From the workspace root (`GitHub.nosync/`):
 
-### Supporting Files
+```bash
+node tools/new-repo.mjs my-app --type=node   # preview: lists every file it will create
+make new-repo NAME=my-app TYPE=node          # create it
+cd my-app && pnpm install && pnpm validate
+```
 
-| File | Purpose |
-|------|---------|
-| `.editorconfig` | Cross-editor formatting consistency |
-| `.gitignore` | Standard ignore patterns |
-| `docs/AI-CUSTOMIZATION-GUIDE.md` | Comprehensive guide to all AI file types |
-| `docs/README-template.md` | Standard README structure for new projects (copy into README.md) |
-| `docs/ARCHITECTURE-template.md`, `docs/PRD-template.md`, `docs/ROADMAP-template.md` | Doc scaffolds (roadmap includes the AI pull-loop convention) |
-| `docs/adr/0000-template.md` | Architecture Decision Record template |
-| `profiles/web/` | Canonical eslint/prettier/tsconfig/wrangler configs for web repos |
+It copies every managed baseline file, the AI instruction files and the matching profile, fills in the project name, and runs `git init`. Afterwards, fill in the Project Overview in `AGENTS.md`. `make sync REPO=my-app` should report nothing missing.
 
-### GitHub Platform & Community Files
+### Or: GitHub "Use this template"
 
-| File | Purpose |
-|------|---------|
-| `LICENSE` | MIT license with placeholder for name and year |
-| `CONTRIBUTING.md` | Contribution guide: setup, workflow, commit conventions |
-| `CODE_OF_CONDUCT.md` | Contributor Covenant v2.1 |
-| `SECURITY.md` | Vulnerability reporting policy and response timeline |
-| `CHANGELOG.md` | Keep a Changelog format with unreleased section |
-| `.github/pull_request_template.md` | PR template with type-of-change checkboxes and checklist |
-| `.github/ISSUE_TEMPLATE/bug_report.yml` | YAML-based bug report issue form |
-| `.github/ISSUE_TEMPLATE/feature_request.yml` | YAML-based feature request issue form |
-| `.github/ISSUE_TEMPLATE/config.yml` | Issue template config (blank issues, contact links) |
-| `.github/workflows/ci.yml` | CI workflow with placeholder lint, test, and build jobs |
-| `.github/dependabot.yml` | Automated dependency updates for Actions and npm |
-| `.github/CODEOWNERS` | Code ownership patterns for automated review routing |
-| `.github/workflows/release.yml` | Automated GitHub Releases on version tags |
-| `.github/labels.yml` | Version-controlled issue/PR label definitions |
-| `.github/workflows/label-sync.yml` | Syncs labels from `labels.yml` to your repo |
+You get every file, including both profiles. `make new-repo` does the steps below for you, so prefer it when you can.
 
-### Developer Experience
+**Web**: copy the profile, dotfiles included, to the root:
 
-| File | Purpose |
-|------|---------||
-| `.devcontainer/devcontainer.json` | One-click dev environment for Codespaces and VS Code |
-| `.vscode/extensions.json` | Recommended VS Code extensions for the project |
-| `.vscode/settings.json` | Workspace editor settings (format-on-save, rulers, etc.) |
-| `Makefile` | Self-documenting, language-agnostic task runner |
-| `.env.example` | Documents required environment variables |
+```bash
+cp -R profiles/web/. . && rm profiles/web/README.md && rm -rf profiles
+```
 
-## Quick Start
+Then replace `replace-project-name` (`package.json`, `wrangler.jsonc`, `index.html`, `src/App.tsx`) and fill in `AGENTS.md`.
 
-1. **Clone or use as template**:
+**Python**: the profile files go to different places, and the Node-only files must be removed:
 
-   ```bash
-   git clone https://github.com/YOUR_ORG/ai-template-repo.git my-project
-   cd my-project
-   rm -rf .git && git init
-   ```
+```bash
+cp profiles/python/ci.yml profiles/python/codeql.yml .github/workflows/
+cp profiles/python/.pre-commit-config.yaml profiles/python/renovate.json .
+rm -rf profiles .husky .lintstagedrc.json commitlint.config.mjs .nvmrc .prettierignore Makefile .dev.vars.example .devcontainer
+```
 
-2. **Choose your workspace instructions format** (pick ONE):
-   - Keep `.github/copilot-instructions.md` (recommended for VS Code Copilot)
-   - OR move `AGENTS.md` to root and delete `copilot-instructions.md`
+Then add a `pyproject.toml` and rewrite the Stack and Commands sections of `AGENTS.md`.
 
-3. **Customize for your project**:
-   - Edit `.github/copilot-instructions.md` with your project's standards
-   - Remove instructions/prompts/agents you don't need
-   - Add instructions specific to your tech stack
-   - Update cross-tool files (`.cursorrules`, etc.) to match
+### Existing repo
 
-4. **Set up project metadata**:
-   - Update `LICENSE` with your name and year (or [choose a different license](https://choosealicense.com))
-   - Replace TODO placeholders in `CONTRIBUTING.md`, `SECURITY.md`, and `CODE_OF_CONDUCT.md`
-   - Customize `.github/workflows/ci.yml` with your build/test/lint commands
-   - Edit `.github/dependabot.yml` for your package ecosystem
-   - Configure `.github/CODEOWNERS` with your team's ownership patterns
+```bash
+make sync REPO=my-repo        # what's missing (dry run)
+make sync-apply REPO=my-repo  # create missing files, never overwrites
+make drift REPO=my-repo       # files that exist but differ from this template
+```
 
-5. **Set up your dev environment**:
-   - Copy `.env.example` to `.env` and fill in your values
-   - Update `Makefile` targets with your actual commands
-   - Review `.vscode/settings.json` and `.vscode/extensions.json`
-   - Try `make help` to see available task runner commands
+## Tech stack
 
-6. **Remove cross-tool files you don't use**:
-   - Only using Copilot? Remove `.cursorrules`, `.clinerules`, `.windsurfrules`, `CLAUDE.md`
-   - Only using Cursor? Keep `.cursorrules`, remove others
+React 19 · TypeScript 6 · Vite 8 · Vitest 5 · ESLint 10 (`@and3rn3t/eslint-config`) · Prettier 3 · pnpm 11 · Node 24 · Cloudflare Workers (wrangler 4)
 
-## File Reference
+## What's in here
 
-### Instructions (`.github/instructions/`)
+| Area            | Files                                                                                                                                                           |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AI instructions | `AGENTS.md` (source of truth), `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules/project.mdc`                                                      |
+| Claude Code     | `.claude/settings.json` (permissions + hook), `.claude/hooks/`, `.claude/skills/` (also loaded by VS Code Copilot)                                              |
+| Copilot         | `.github/instructions/` (file-scoped), `.github/prompts/`, `.github/agents/`, `.github/hooks/`                                                                  |
+| CI / automation | `.github/workflows/`: ci, codeql, dependency-review, gitleaks, actionlint, consistency, labeler, label-sync, release-drafter, stale, lighthouse (disabled stub) |
+| Git hooks       | `.husky/` (commit-msg, pre-commit, pre-push), `commitlint.config.mjs`, `.lintstagedrc.json`                                                                     |
+| Community       | `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, issue/PR templates, `CODEOWNERS`, labels                                     |
+| Editor / env    | `.editorconfig`, `.gitattributes`, `.vscode/`, `.devcontainer/`, `.nvmrc`, `.env.example`, `.dev.vars.example`, `Makefile`                                      |
+| Profiles        | `profiles/web/` (package.json, vite, wrangler.jsonc, eslint/prettier/tsconfig, src), `profiles/python/` (ci, codeql, pre-commit, renovate)                      |
+| Docs            | `docs/README-STANDARD.md` (scored README shape), README/ARCHITECTURE/PRD/ROADMAP/ADR templates, `docs/AI-CUSTOMIZATION-GUIDE.md`                                |
 
-Auto-loaded when working on matching files, or discovered by the agent based on task relevance.
+## How baseline changes reach other repos
 
-| File | Trigger | Purpose |
-|------|---------|---------|
-| `code-style.instructions.md` | `applyTo: **/*.{ts,js,py,...}` | Naming, formatting, organization |
-| `testing.instructions.md` | `applyTo: **/*.{test,spec}.*` | Test patterns and conventions |
-| `security.instructions.md` | `applyTo: **/auth/**, **/security/**` | Security best practices |
-| `documentation.instructions.md` | `applyTo: **/*.md` | Documentation standards |
-| `api-design.instructions.md` | `applyTo: **/api/**, **/routes/**` | REST API design patterns |
-| `database.instructions.md` | `applyTo: **/migrations/**, **/models/**` | DB queries and migrations |
-| `frontend.instructions.md` | `applyTo: **/*.{tsx,jsx,vue,svelte}` | UI components and state |
-| `performance.instructions.md` | On-demand (description match) | Performance optimization |
-| `git-conventions.instructions.md` | On-demand (description match) | Commit and branch conventions |
+The workspace tooling (`tools/lib/manifest.mjs`) reads managed files from this repo.
 
-### Prompts (`.github/prompts/`)
+1. Change the file here, then merge.
+2. `make drift`: every repo that now differs is listed.
+3. `make sync-update FILE=<path>` (dry run), then `make sync-update-apply FILE=<path>`: overwrites drifted copies of that one file. Files a repo blesses in `.consistency-ignore` are skipped.
+4. New files reach repos through `make sync-apply`, which never overwrites existing files.
 
-Invoked with `/` in Copilot chat. Each is a focused task template.
-
-| Prompt | Purpose |
-|--------|---------|
-| `/generate-tests` | Create comprehensive test suites |
-| `/code-review` | Thorough code review with structured findings |
-| `/refactor` | Improve code structure without changing behavior |
-| `/generate-docs` | Create documentation for code |
-| `/create-api-endpoint` | Scaffold a new API endpoint with tests |
-| `/debug` | Systematic debugging workflow |
-| `/create-component` | Build UI components with accessibility |
-| `/generate-migration` | Create safe database migrations |
-| `/explain-code` | Detailed code explanation |
-| `/optimize` | Performance optimization with benchmarks |
-| `/security-audit` | OWASP Top 10 security audit |
-
-### Agents (`.github/agents/`)
-
-Specialized personas available in the Copilot agent picker.
-
-| Agent | Tools | Purpose |
-|-------|-------|---------|
-| `reviewer` | read, search | Code review specialist |
-| `architect` | read, search | System design advisor |
-| `tester` | read, search, edit, execute | Testing specialist |
-| `security-auditor` | read, search | Security vulnerability finder |
-| `docs-writer` | read, search, edit | Technical documentation writer |
-| `explorer` | read, search | Read-only codebase analysis |
-| `refactorer` | read, search, edit, execute | Code improvement specialist |
-
-### Skills (`.github/skills/`)
-
-Multi-step workflows invoked via `/` in chat, with bundled reference docs.
-
-| Skill | Purpose | Bundled Resources |
-|-------|---------|-------------------|
-| `code-review` | Structured review workflow | Review checklist |
-| `project-setup` | New project initialization | Project templates |
-| `testing-workflow` | Comprehensive test creation | Testing patterns |
-
-## Customization Tips
-
-- **Keep instructions concise** — they share the AI's context window
-- **Use `applyTo` sparingly** — broad patterns burn context on every request
-- **Write keyword-rich descriptions** — this is how agents discover files
-- **One concern per file** — separate testing, styling, and security into distinct files
-- **Link, don't embed** — reference existing docs instead of copying content
-- **Show, don't tell** — brief code examples beat lengthy explanations
-
-See [docs/AI-CUSTOMIZATION-GUIDE.md](docs/AI-CUSTOMIZATION-GUIDE.md) for the complete reference.
+Files that are deliberately repo-specific (`AGENTS.md`, `ci.yml`, ESLint/tsconfig) are never synced after creation. See `tools/README.md` → _Managed files_.
 
 ## License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+MIT — see [LICENSE](LICENSE).

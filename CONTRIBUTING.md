@@ -11,21 +11,19 @@ Thank you for your interest in contributing! This guide will help you get starte
 
 ## Development Setup
 
-<!-- TODO: Replace these steps with your project's actual setup instructions. -->
-
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
+gh repo fork --clone <repo>
+cd <repo>
 
 # Install dependencies
-npm install        # TODO: Replace with your install command
+pnpm install       # or: make setup
 
 # Run tests
-npm test           # TODO: Replace with your test command
+pnpm test
 
 # Start development server
-npm run dev        # TODO: Replace with your dev command
+pnpm dev
 ```
 
 ## Branch Naming
@@ -82,7 +80,7 @@ This project uses shared code style guidelines enforced through:
 Run the linter before submitting:
 
 ```bash
-npm run lint       # TODO: Replace with your lint command
+pnpm lint
 ```
 
 ## Testing
@@ -92,12 +90,12 @@ All new code should include tests. Follow the patterns documented in:
 - [Testing instructions](.github/instructions/testing.instructions.md) — Unit test patterns and conventions
 
 ```bash
-npm test           # TODO: Replace with your test command
+pnpm test
 ```
 
 ## AI-Assisted Development
 
-This repository includes configuration files for AI coding assistants (Copilot, Cursor, Windsurf, Cline, Claude Code). These files define project conventions so AI tools produce consistent, high-quality code.
+This repository includes configuration files for AI coding assistants (Claude Code, Copilot, Cursor — all read `AGENTS.md`). These files define project conventions so AI tools produce consistent, high-quality code.
 
 - See [docs/AI-CUSTOMIZATION-GUIDE.md](docs/AI-CUSTOMIZATION-GUIDE.md) for details
 - AI instructions in `.github/instructions/` are auto-loaded based on file patterns
@@ -111,6 +109,4 @@ This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.
 
 ## Questions?
 
-<!-- TODO: Add your preferred communication channel. -->
-
-Open a [GitHub Discussion](https://github.com/YOUR_ORG/YOUR_REPO/discussions) or file an issue.
+Open an issue on this repository.

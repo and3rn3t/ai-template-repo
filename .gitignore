@@ -11,10 +11,23 @@ build/
 out/
 *.egg-info/
 
-# Environment
+# Environment & secrets
 .env
 .env.local
 .env.*.local
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.secrets.local.json
+
+# Build caches
+.wrangler/
+.vite/
+*.tsbuildinfo
+.pnpm-store/
+
+# AI assistants (personal settings)
+.claude/settings.local.json
 
 # IDE
 .idea/
@@ -32,6 +45,8 @@ coverage/
 htmlcov/
 .pytest_cache/
 .coverage
+playwright-report/
+test-results/
 
 # Logs
 *.log
