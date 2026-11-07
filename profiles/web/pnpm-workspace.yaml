@@ -8,6 +8,9 @@ allowBuilds:
 # pnpm defaults to a 24h minimumReleaseAge, which blocks same-day Renovate PRs.
 # 240 minutes still guards against hijacked releases. Value is in minutes.
 minimumReleaseAge: 240
+# First-party packages are trusted the moment they're published.
+minimumReleaseAgeExclude:
+  - '@and3rn3t/*'
 
 # Security version pins go here:
 # overrides:

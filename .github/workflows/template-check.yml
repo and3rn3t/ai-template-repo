@@ -28,8 +28,12 @@ jobs:
         with:
           node-version-file: .nvmrc
 
+      # profiles/web/prettier.config.js imports the shared base from
+      # @and3rn3t/eslint-config, so install both (throwaway, not committed).
       - name: Prettier (shared base)
-        run: npx --yes prettier@3.9.10 --config profiles/web/prettier.config.js --check "**/*.{md,yml,yaml,json}"
+        run: |
+          npm install --prefix . --no-save --no-package-lock --silent prettier@3.9.10 @and3rn3t/eslint-config@0.4.0
+          npx prettier --config profiles/web/prettier.config.js --check "**/*.{md,yml,yaml,json}"
 
       - name: JSON files parse
         run: |

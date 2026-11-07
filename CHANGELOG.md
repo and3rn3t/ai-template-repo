@@ -11,7 +11,7 @@ Baseline overhaul: this repo is now the single source for every managed baseline
 
 ### Added
 
-- `profiles/web/`: working React 19 + Vite 8 + Vitest 5 + Workers starter (package.json on pnpm 11, pnpm-workspace.yaml, wrangler.jsonc with static assets + SPA fallback, ESLint via `@and3rn3t/eslint-config`)
+- `profiles/web/`: working React 19 + Vite 8 + Vitest 5 + Workers starter (package.json on pnpm 11, pnpm-workspace.yaml, wrangler.jsonc with static assets + SPA fallback; ESLint, Prettier and tsconfig all from `@and3rn3t/eslint-config@^0.4.0`)
 - `profiles/python/`: ci, codeql, pre-commit and renovate files (moved from `tools/templates/python`)
 - consistency, gitleaks and actionlint workflows (were only in `.github/workflow-templates`)
 - `template-check.yml`: Prettier, JSON, pointer, TODO and hook checks, plus an install/validate/build of the web starter
