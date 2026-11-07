@@ -6,59 +6,59 @@ A comprehensive template repository pre-configured with AI coding assistant file
 
 ### VS Code Copilot (`.github/`)
 
-| Type | Path | Count | Purpose |
-|------|------|-------|---------|
-| **Workspace Instructions** | `.github/copilot-instructions.md` | 1 | Global project standards applied to every interaction |
-| **File Instructions** | `.github/instructions/*.instructions.md` | 9 | Context-specific guidelines loaded on-demand or by file pattern |
-| **Prompts** | `.github/prompts/*.prompt.md` | 11 | Reusable task templates invoked via `/` in chat |
-| **Agents** | `.github/agents/*.agent.md` | 7 | Specialized AI personas with role-specific tools and constraints |
-| **Skills** | `.github/skills/*/SKILL.md` | 3 | Multi-step workflows with bundled reference docs |
-| **Hooks** | `.github/hooks/*.json` | 1 | Lifecycle automation for deterministic behavior enforcement |
+| Type                       | Path                                     | Count | Purpose                                                          |
+| -------------------------- | ---------------------------------------- | ----- | ---------------------------------------------------------------- |
+| **Workspace Instructions** | `.github/copilot-instructions.md`        | 1     | Global project standards applied to every interaction            |
+| **File Instructions**      | `.github/instructions/*.instructions.md` | 9     | Context-specific guidelines loaded on-demand or by file pattern  |
+| **Prompts**                | `.github/prompts/*.prompt.md`            | 11    | Reusable task templates invoked via `/` in chat                  |
+| **Agents**                 | `.github/agents/*.agent.md`              | 7     | Specialized AI personas with role-specific tools and constraints |
+| **Skills**                 | `.github/skills/*/SKILL.md`              | 3     | Multi-step workflows with bundled reference docs                 |
+| **Hooks**                  | `.github/hooks/*.json`                   | 1     | Lifecycle automation for deterministic behavior enforcement      |
 
 ### Cross-Tool AI Files (Root)
 
-| File | Tool | Purpose |
-|------|------|---------|
-| `AGENTS.md` | Open standard | **Single source of truth** for all AI assistant instructions |
-| `CLAUDE.md` | Claude Code | Pointer to AGENTS.md + Claude-specific notes |
-| `.cursor/rules/project.mdc` | Cursor IDE | Pointer to AGENTS.md (modern format) |
-| `.cursorrules` | Cursor IDE (legacy) | Pointer to AGENTS.md |
-| `.clinerules` | Cline extension | Pointer to AGENTS.md |
-| `.windsurfrules` | Windsurf IDE | Pointer to AGENTS.md |
+| File                        | Tool                | Purpose                                                      |
+| --------------------------- | ------------------- | ------------------------------------------------------------ |
+| `AGENTS.md`                 | Open standard       | **Single source of truth** for all AI assistant instructions |
+| `CLAUDE.md`                 | Claude Code         | Pointer to AGENTS.md + Claude-specific notes                 |
+| `.cursor/rules/project.mdc` | Cursor IDE          | Pointer to AGENTS.md (modern format)                         |
+| `.cursorrules`              | Cursor IDE (legacy) | Pointer to AGENTS.md                                         |
+| `.clinerules`               | Cline extension     | Pointer to AGENTS.md                                         |
+| `.windsurfrules`            | Windsurf IDE        | Pointer to AGENTS.md                                         |
 
 > **Single-source pattern**: edit `AGENTS.md` only. The pointer files exist so every tool finds the instructions; they never carry their own copies of the content.
 
 ### Supporting Files
 
-| File | Purpose |
-|------|---------|
-| `.editorconfig` | Cross-editor formatting consistency |
-| `.gitignore` | Standard ignore patterns |
-| `docs/AI-CUSTOMIZATION-GUIDE.md` | Comprehensive guide to all AI file types |
-| `docs/README-template.md` | Standard README structure for new projects (copy into README.md) |
-| `docs/ARCHITECTURE-template.md`, `docs/PRD-template.md`, `docs/ROADMAP-template.md` | Doc scaffolds (roadmap includes the AI pull-loop convention) |
-| `docs/adr/0000-template.md` | Architecture Decision Record template |
-| `profiles/web/` | Canonical eslint/prettier/tsconfig/wrangler configs for web repos |
+| File                                                                                | Purpose                                                           |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `.editorconfig`                                                                     | Cross-editor formatting consistency                               |
+| `.gitignore`                                                                        | Standard ignore patterns                                          |
+| `docs/AI-CUSTOMIZATION-GUIDE.md`                                                    | Comprehensive guide to all AI file types                          |
+| `docs/README-template.md`                                                           | Standard README structure for new projects (copy into README.md)  |
+| `docs/ARCHITECTURE-template.md`, `docs/PRD-template.md`, `docs/ROADMAP-template.md` | Doc scaffolds (roadmap includes the AI pull-loop convention)      |
+| `docs/adr/0000-template.md`                                                         | Architecture Decision Record template                             |
+| `profiles/web/`                                                                     | Canonical eslint/prettier/tsconfig/wrangler configs for web repos |
 
 ### GitHub Platform & Community Files
 
-| File | Purpose |
-|------|---------|
-| `LICENSE` | MIT license with placeholder for name and year |
-| `CONTRIBUTING.md` | Contribution guide: setup, workflow, commit conventions |
-| `CODE_OF_CONDUCT.md` | Contributor Covenant v2.1 |
-| `SECURITY.md` | Vulnerability reporting policy and response timeline |
-| `CHANGELOG.md` | Keep a Changelog format with unreleased section |
-| `.github/pull_request_template.md` | PR template with type-of-change checkboxes and checklist |
-| `.github/ISSUE_TEMPLATE/bug_report.yml` | YAML-based bug report issue form |
-| `.github/ISSUE_TEMPLATE/feature_request.yml` | YAML-based feature request issue form |
-| `.github/ISSUE_TEMPLATE/config.yml` | Issue template config (blank issues, contact links) |
-| `.github/workflows/ci.yml` | CI workflow with placeholder lint, test, and build jobs |
-| `.github/dependabot.yml` | Automated dependency updates for Actions and npm |
-| `.github/CODEOWNERS` | Code ownership patterns for automated review routing |
-| `.github/workflows/release.yml` | Automated GitHub Releases on version tags |
-| `.github/labels.yml` | Version-controlled issue/PR label definitions |
-| `.github/workflows/label-sync.yml` | Syncs labels from `labels.yml` to your repo |
+| File                                         | Purpose                                                  |
+| -------------------------------------------- | -------------------------------------------------------- |
+| `LICENSE`                                    | MIT license with placeholder for name and year           |
+| `CONTRIBUTING.md`                            | Contribution guide: setup, workflow, commit conventions  |
+| `CODE_OF_CONDUCT.md`                         | Contributor Covenant v2.1                                |
+| `SECURITY.md`                                | Vulnerability reporting policy and response timeline     |
+| `CHANGELOG.md`                               | Keep a Changelog format with unreleased section          |
+| `.github/pull_request_template.md`           | PR template with type-of-change checkboxes and checklist |
+| `.github/ISSUE_TEMPLATE/bug_report.yml`      | YAML-based bug report issue form                         |
+| `.github/ISSUE_TEMPLATE/feature_request.yml` | YAML-based feature request issue form                    |
+| `.github/ISSUE_TEMPLATE/config.yml`          | Issue template config (blank issues, contact links)      |
+| `.github/workflows/ci.yml`                   | CI workflow with placeholder lint, test, and build jobs  |
+| `.github/dependabot.yml`                     | Automated dependency updates for Actions and npm         |
+| `.github/CODEOWNERS`                         | Code ownership patterns for automated review routing     |
+| `.github/workflows/release.yml`              | Automated GitHub Releases on version tags                |
+| `.github/labels.yml`                         | Version-controlled issue/PR label definitions            |
+| `.github/workflows/label-sync.yml`           | Syncs labels from `labels.yml` to your repo              |
 
 ### Developer Experience
 
@@ -113,59 +113,59 @@ A comprehensive template repository pre-configured with AI coding assistant file
 
 Auto-loaded when working on matching files, or discovered by the agent based on task relevance.
 
-| File | Trigger | Purpose |
-|------|---------|---------|
-| `code-style.instructions.md` | `applyTo: **/*.{ts,js,py,...}` | Naming, formatting, organization |
-| `testing.instructions.md` | `applyTo: **/*.{test,spec}.*` | Test patterns and conventions |
-| `security.instructions.md` | `applyTo: **/auth/**, **/security/**` | Security best practices |
-| `documentation.instructions.md` | `applyTo: **/*.md` | Documentation standards |
-| `api-design.instructions.md` | `applyTo: **/api/**, **/routes/**` | REST API design patterns |
-| `database.instructions.md` | `applyTo: **/migrations/**, **/models/**` | DB queries and migrations |
-| `frontend.instructions.md` | `applyTo: **/*.{tsx,jsx,vue,svelte}` | UI components and state |
-| `performance.instructions.md` | On-demand (description match) | Performance optimization |
-| `git-conventions.instructions.md` | On-demand (description match) | Commit and branch conventions |
+| File                              | Trigger                                   | Purpose                          |
+| --------------------------------- | ----------------------------------------- | -------------------------------- |
+| `code-style.instructions.md`      | `applyTo: **/*.{ts,js,py,...}`            | Naming, formatting, organization |
+| `testing.instructions.md`         | `applyTo: **/*.{test,spec}.*`             | Test patterns and conventions    |
+| `security.instructions.md`        | `applyTo: **/auth/**, **/security/**`     | Security best practices          |
+| `documentation.instructions.md`   | `applyTo: **/*.md`                        | Documentation standards          |
+| `api-design.instructions.md`      | `applyTo: **/api/**, **/routes/**`        | REST API design patterns         |
+| `database.instructions.md`        | `applyTo: **/migrations/**, **/models/**` | DB queries and migrations        |
+| `frontend.instructions.md`        | `applyTo: **/*.{tsx,jsx,vue,svelte}`      | UI components and state          |
+| `performance.instructions.md`     | On-demand (description match)             | Performance optimization         |
+| `git-conventions.instructions.md` | On-demand (description match)             | Commit and branch conventions    |
 
 ### Prompts (`.github/prompts/`)
 
 Invoked with `/` in Copilot chat. Each is a focused task template.
 
-| Prompt | Purpose |
-|--------|---------|
-| `/generate-tests` | Create comprehensive test suites |
-| `/code-review` | Thorough code review with structured findings |
-| `/refactor` | Improve code structure without changing behavior |
-| `/generate-docs` | Create documentation for code |
-| `/create-api-endpoint` | Scaffold a new API endpoint with tests |
-| `/debug` | Systematic debugging workflow |
-| `/create-component` | Build UI components with accessibility |
-| `/generate-migration` | Create safe database migrations |
-| `/explain-code` | Detailed code explanation |
-| `/optimize` | Performance optimization with benchmarks |
-| `/security-audit` | OWASP Top 10 security audit |
+| Prompt                 | Purpose                                          |
+| ---------------------- | ------------------------------------------------ |
+| `/generate-tests`      | Create comprehensive test suites                 |
+| `/code-review`         | Thorough code review with structured findings    |
+| `/refactor`            | Improve code structure without changing behavior |
+| `/generate-docs`       | Create documentation for code                    |
+| `/create-api-endpoint` | Scaffold a new API endpoint with tests           |
+| `/debug`               | Systematic debugging workflow                    |
+| `/create-component`    | Build UI components with accessibility           |
+| `/generate-migration`  | Create safe database migrations                  |
+| `/explain-code`        | Detailed code explanation                        |
+| `/optimize`            | Performance optimization with benchmarks         |
+| `/security-audit`      | OWASP Top 10 security audit                      |
 
 ### Agents (`.github/agents/`)
 
 Specialized personas available in the Copilot agent picker.
 
-| Agent | Tools | Purpose |
-|-------|-------|---------|
-| `reviewer` | read, search | Code review specialist |
-| `architect` | read, search | System design advisor |
-| `tester` | read, search, edit, execute | Testing specialist |
-| `security-auditor` | read, search | Security vulnerability finder |
-| `docs-writer` | read, search, edit | Technical documentation writer |
-| `explorer` | read, search | Read-only codebase analysis |
-| `refactorer` | read, search, edit, execute | Code improvement specialist |
+| Agent              | Tools                       | Purpose                        |
+| ------------------ | --------------------------- | ------------------------------ |
+| `reviewer`         | read, search                | Code review specialist         |
+| `architect`        | read, search                | System design advisor          |
+| `tester`           | read, search, edit, execute | Testing specialist             |
+| `security-auditor` | read, search                | Security vulnerability finder  |
+| `docs-writer`      | read, search, edit          | Technical documentation writer |
+| `explorer`         | read, search                | Read-only codebase analysis    |
+| `refactorer`       | read, search, edit, execute | Code improvement specialist    |
 
 ### Skills (`.github/skills/`)
 
 Multi-step workflows invoked via `/` in chat, with bundled reference docs.
 
-| Skill | Purpose | Bundled Resources |
-|-------|---------|-------------------|
-| `code-review` | Structured review workflow | Review checklist |
-| `project-setup` | New project initialization | Project templates |
-| `testing-workflow` | Comprehensive test creation | Testing patterns |
+| Skill              | Purpose                     | Bundled Resources |
+| ------------------ | --------------------------- | ----------------- |
+| `code-review`      | Structured review workflow  | Review checklist  |
+| `project-setup`    | New project initialization  | Project templates |
+| `testing-workflow` | Comprehensive test creation | Testing patterns  |
 
 ## Customization Tips
 

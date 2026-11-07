@@ -4,15 +4,15 @@ Every active `and3rn3t` repo opens its README the same way, so a visitor can tel
 
 ## Required shape (in order)
 
-| # | Section | Rule | Checked as |
-|---|---|---|---|
-| 1 | **H1 + tagline** | `# Name`, then one sentence (bold is fine) saying what it is and who it's for. | `title` |
-| 2 | **Badge row** | CI workflow status (the repo's real workflow file), license, live site if there is one. Extra badges go after these three. | `badges` |
-| 3 | **Screenshot or GIF** | Live site / app → `docs/screenshot.png` (or the repo's existing assets folder). CLI / skill → an image of real terminal output. No image possible → add `presentation:screenshot` to `.consistency-ignore`. | `screenshot` |
-| 4 | **Features** | 4–10 bullets, one line each. | — |
-| 5 | **Getting started** | Prerequisites, install, run — copy-pasteable. Heading must contain *Getting started*, *Quick start*, *Install*, *Setup* or *Usage*. | `quickstart` |
-| 6 | **Tech stack** | One short list or table. | — |
-| 7 | **License** | `## License` + one line linking `LICENSE`. | `license-sec` |
+| #   | Section               | Rule                                                                                                                                                                                                        | Checked as    |
+| --- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| 1   | **H1 + tagline**      | `# Name`, then one sentence (bold is fine) saying what it is and who it's for.                                                                                                                              | `title`       |
+| 2   | **Badge row**         | CI workflow status (the repo's real workflow file), license, live site if there is one. Extra badges go after these three.                                                                                  | `badges`      |
+| 3   | **Screenshot or GIF** | Live site / app → `docs/screenshot.png` (or the repo's existing assets folder). CLI / skill → an image of real terminal output. No image possible → add `presentation:screenshot` to `.consistency-ignore`. | `screenshot`  |
+| 4   | **Features**          | 4–10 bullets, one line each.                                                                                                                                                                                | —             |
+| 5   | **Getting started**   | Prerequisites, install, run — copy-pasteable. Heading must contain _Getting started_, _Quick start_, _Install_, _Setup_ or _Usage_.                                                                         | `quickstart`  |
+| 6   | **Tech stack**        | One short list or table.                                                                                                                                                                                    | —             |
+| 7   | **License**           | `## License` + one line linking `LICENSE`.                                                                                                                                                                  | `license-sec` |
 
 Everything else (architecture, commands, deployment, roadmap, troubleshooting) goes **between Tech stack and License**. Long detail belongs in `docs/`, linked from the README.
 

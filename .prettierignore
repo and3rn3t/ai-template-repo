@@ -1,0 +1,4 @@
+# Template self-check formats with profiles/web/prettier.config.js (the shared base).
+CHANGELOG.md
+pnpm-lock.yaml
+node_modules/
