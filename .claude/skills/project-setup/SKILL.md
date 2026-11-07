@@ -12,9 +12,10 @@ new layouts or configs — copy from there.
 
 ## New repo
 
-1. From the workspace root: `make new-repo NAME=<name> TYPE=node|python` (dry run),
-   then `node tools/new-repo.mjs <name> --type=<type> --apply`.
-2. Replace `replace-project-name` (web: `package.json`, `wrangler.jsonc`, `index.html`, `src/App.tsx`).
+1. From the workspace root, preview with `node tools/new-repo.mjs <name> --type=node|python`,
+   then create it with `make new-repo NAME=<name> TYPE=node|python`.
+2. The project name is filled in automatically. Repos created via GitHub's "Use this template" must
+   replace `replace-project-name` by hand (`package.json`, `wrangler.jsonc`, `index.html`, `src/App.tsx`).
 3. Fill in the **Project Overview** in `AGENTS.md`. Leave `CLAUDE.md` as a pointer.
 4. Web: `pnpm install && pnpm validate && pnpm build`. Python: `pip install -e ".[dev]" && pytest`,
    then `pre-commit install --hook-type commit-msg`.

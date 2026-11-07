@@ -23,16 +23,16 @@
 From the workspace root (`GitHub.nosync/`):
 
 ```bash
-make new-repo NAME=my-app TYPE=node          # dry run: lists files
-node tools/new-repo.mjs my-app --type=node --apply
+node tools/new-repo.mjs my-app --type=node   # preview: lists every file it will create
+make new-repo NAME=my-app TYPE=node          # create it
 cd my-app && pnpm install && pnpm validate
 ```
 
-This copies the root baseline plus the matching profile, then runs `git init`. Afterwards, replace `replace-project-name` and fill in the Project Overview in `AGENTS.md`.
+It copies every managed baseline file, the AI instruction files and the matching profile, fills in the project name, and runs `git init`. Afterwards, fill in the Project Overview in `AGENTS.md`. `make sync REPO=my-app` should report nothing missing.
 
 ### Or: GitHub "Use this template"
 
-You get every file, including both profiles. Copy `profiles/web/*` (or `profiles/python/*`) to the root, delete `profiles/`, then do the same placeholder and AGENTS.md steps.
+You get every file, including both profiles. Copy `profiles/web/*` (or `profiles/python/*`) to the root, delete `profiles/`, replace `replace-project-name` (package.json, wrangler.jsonc, index.html, src/App.tsx), and fill in `AGENTS.md`.
 
 ### Existing repo
 
