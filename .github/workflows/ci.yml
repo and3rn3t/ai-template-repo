@@ -27,6 +27,9 @@ permissions:
 jobs:
   quality:
     name: Lint, Type-check & Test
+    # This repo is a template with no package.json, so there is nothing to run
+    # here. Repos created from it have a different name and run the job.
+    if: github.repository != 'and3rn3t/ai-template-repo'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
