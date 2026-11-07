@@ -33,7 +33,18 @@
       "Bash(ruff check *)",
       "Bash(ruff format *)",
       "Bash(make lint *)",
-      "Bash(make test *)"
+      "Bash(make test *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(pnpm validate *)",
+      "Bash(pnpm exec vitest *)",
+      "Bash(pnpm exec tsc --noEmit *)",
+      "Bash(pnpm exec eslint *)",
+      "Bash(pnpm exec prettier --check *)",
+      "Bash(npm run validate *)",
+      "Bash(make validate *)",
+      "Bash(make type-check *)"
     ],
     "deny": [
       "Read(./.env)",

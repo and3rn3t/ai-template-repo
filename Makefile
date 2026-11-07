@@ -1,19 +1,14 @@
 # ============================================================================
-# Makefile — Language-agnostic task runner
+# Makefile — thin wrapper so every repo exposes the same task names.
 # ============================================================================
-# This Makefile provides a standard set of targets for common development tasks.
-# It works as a thin wrapper so every contributor uses the same commands
-# regardless of the underlying language or toolchain.
-#
-# Usage:
-#   make          # prints available targets
-#   make setup    # install dependencies
-#   make test     # run tests
-#
-# TODO: Replace the echo stubs below with real commands for your project.
+# Defaults target the pnpm web profile (see AGENTS.md). For other stacks,
+# swap the recipe bodies but keep the target names — tooling and AI assistants
+# rely on `make setup | dev | lint | test | validate`.
 # ============================================================================
 
 .DEFAULT_GOAL := help
+
+PM ?= pnpm
 
 # Self-documenting help: any target with a ## comment gets listed.
 .PHONY: help
@@ -26,20 +21,28 @@ help: ## Show this help message
 # ---------------------------------------------------------------------------
 
 .PHONY: setup
-setup: ## Install project dependencies
-	@echo "TODO: Add dependency install command (e.g., npm install, pip install -r requirements.txt)"
+setup: ## Install dependencies
+	$(PM) install
 
 .PHONY: dev
-dev: ## Start the development server
-	@echo "TODO: Add dev server command (e.g., npm run dev, python manage.py runserver)"
+dev: ## Start the Vite dev server
+	$(PM) dev
+
+.PHONY: cf-dev
+cf-dev: ## Run in the Workers runtime (wrangler dev)
+	$(PM) cf:dev
 
 .PHONY: lint
-lint: ## Run linter
-	@echo "TODO: Add lint command (e.g., npm run lint, ruff check .)"
+lint: ## Run ESLint
+	$(PM) lint
 
 .PHONY: format
-format: ## Run code formatter
-	@echo "TODO: Add format command (e.g., npx prettier --write ., ruff format .)"
+format: ## Format with Prettier
+	$(PM) format
+
+.PHONY: type-check
+type-check: ## Type-check with tsc
+	$(PM) type-check
 
 # ---------------------------------------------------------------------------
 # Testing
@@ -47,32 +50,20 @@ format: ## Run code formatter
 
 .PHONY: test
 test: ## Run tests
-	@echo "TODO: Add test command (e.g., npm test, pytest)"
+	$(PM) test
 
-.PHONY: test-watch
-test-watch: ## Run tests in watch mode
-	@echo "TODO: Add test-watch command (e.g., npm test -- --watch, ptw)"
+.PHONY: validate
+validate: ## Full gate: lint + type-check + test (same as pre-push)
+	$(PM) validate
 
 # ---------------------------------------------------------------------------
-# Build & Release
+# Build
 # ---------------------------------------------------------------------------
 
 .PHONY: build
-build: ## Build for production
-	@echo "TODO: Add build command (e.g., npm run build, python -m build)"
+build: ## Production build
+	$(PM) build
 
 .PHONY: clean
 clean: ## Remove build artifacts
-	@echo "TODO: Add clean command (e.g., rm -rf dist/ build/ coverage/)"
-
-# ---------------------------------------------------------------------------
-# Docker (uncomment when ready)
-# ---------------------------------------------------------------------------
-
-# .PHONY: docker-build
-# docker-build: ## Build Docker image
-# 	docker build -t my-app .
-
-# .PHONY: docker-run
-# docker-run: ## Run Docker container
-# 	docker run --rm -p 3000:3000 my-app
+	rm -rf dist/ coverage/ .wrangler/ node_modules/.vite/
