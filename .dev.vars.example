@@ -1,0 +1,6 @@
+# Local secrets for `wrangler dev` (Workers runtime).
+#   cp .dev.vars.example .dev.vars
+# In production set each one with: wrangler secret put NAME
+# .dev.vars is gitignored and denied to Claude Code reads.
+
+# API_KEY=
