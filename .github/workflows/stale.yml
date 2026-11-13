@@ -12,6 +12,6 @@ permissions:
 
 jobs:
   stale:
-    uses: and3rn3t/.github/.github/workflows/reusable-stale.yml@v1
+    uses: and3rn3t/.github/.github/workflows/reusable-stale.yml@bee3d0a11a39b66867b89dddc0306362587aa011 # v1
     with:
       exempt-labels: pinned,security,critical,roadmap,work-in-progress
